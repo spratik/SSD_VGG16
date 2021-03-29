@@ -65,13 +65,13 @@ if __name__ == '__main__':
         raise ValueError('Unknown architecture: {}'.format(args.arch))
 
     default_boxes = generate_default_boxes(config)
-
+    print("Batch Generater started")
     batch_generator, val_generator, info = create_batch_generator(
         args.data_dir, args.data_year, default_boxes,
         config['image_size'],
         args.batch_size, args.num_batches,
         mode='train', augmentation=['flip'])  # the patching algorithm is currently causing bottleneck sometimes
-    
+    print("Batch Generater completed")
     try:
         ssd = create_ssd(NUM_CLASSES, args.arch,
                         args.pretrained_type,
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     val_log_dir = 'logs/val'
     train_summary_writer = tf.summary.create_file_writer(train_log_dir)
     val_summary_writer = tf.summary.create_file_writer(val_log_dir)
-
+    print("Training started")
     for epoch in range(args.num_epochs):
         avg_loss = 0.0
         avg_conf_loss = 0.0
