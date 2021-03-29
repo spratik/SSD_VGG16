@@ -58,12 +58,12 @@ if __name__ == '__main__':
 
     with open('./config.yml') as f:
         cfg = yaml.load(f)
-
+    print("read yml")
     try:
         config = cfg[args.arch.upper()]
     except AttributeError:
         raise ValueError('Unknown architecture: {}'.format(args.arch))
-
+    print("generate_default_boxes started")
     default_boxes = generate_default_boxes(config)
     print("Batch Generater started")
     batch_generator, val_generator, info = create_batch_generator(
